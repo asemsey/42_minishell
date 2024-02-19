@@ -1,7 +1,7 @@
 to-do:
--	read the subject
--	basic setup -- makefile, test.c, ...
 -	understand allowed funcs
+-	improve and import libft
+-	basic setup -- makefile, test.c, ...
 -	learn to use git as a team
 -	come up with a plan
 -	check out bash documentation
