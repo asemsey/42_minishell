@@ -1,0 +1,55 @@
+chatgpt part 1:		https://chat.openai.com/share/ba890a90-a96e-44fc-88fc-8b54451cb0d0
+
+-- PART READLINE --
+
+readline --- just like python input("write sth: "), uses malloc()
+
+rl_clear_history --- clears all previous commands from the history_list
+
+rl_on_new_line --- make next input appear on a new line
+
+rl_replace_line --- replaces the last input line with this string, need to update display with...
+
+rl_redisplay --- redraw the display
+
+add_history --- add last input to command history list
+
+
+-- PART ONE --
+
+access --- checks if file has specified permission / exists
+
+fork --- create a new process (child) by duplicating the existing process (parent).
+
+wait --- used by a parent process to wait for the termination of its child processes
+		with wait(&status); its exit status is stored in the status variable
+
+waitpid --- specify which child process to wait for and how the waiting should be handled
+
+wait3, wait4 --- older versions of waitpid, has more params and options
+
+getcwd --- get the current working directory (char *)
+
+chdir --- change the current working directory (char *)
+
+stat --- stores file information in a struct stat
+
+lstat --- stat but provides info about symlinks instead of following them
+
+fstat --- stat by fd
+
+unlink --- remove a directory entry associated with a file.
+		The file itself will be deleted if there are no more references to it (...hard links)
+		and  no processes holding it open.
+
+execve --- execute the given program with argv
+
+dup --- open a new filedescriptor to the same file as the original fd
+
+dup2 --- dup but specify which fd to open the duplicate to
+
+pipe --- creates inter-process communication. allows one process to write to pipe
+		and the other process to read from pipe
+
+
+-- PART TWO --
