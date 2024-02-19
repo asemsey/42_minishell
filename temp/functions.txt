@@ -1,3 +1,65 @@
+chatgpt part 1:		https://chat.openai.com/share/ba890a90-a96e-44fc-88fc-8b54451cb0d0
+
+-- PART READLINE --
+
+char *readline(const char *); --- just like python input("write sth: "), uses malloc()
+
+void rl_clear_history(void); --- clears all previous commands from the history_list
+
+int rl_on_new_line(void); --- make next input appear on a new line
+
+void rl_replace_line(const char *, int); --- replaces the last input line with this string,
+		need to update display with...
+
+void rl_redisplay(void); --- redraw the display
+
+void add_history(const char *); --- add last input to command history list
+
+
+-- PART ONE --
+
+int access(const char *path, int mode); --- checks if file has specified permission / exists
+
+pid_t fork(void); --- create a new process (child) by duplicating the existing process (parent).
+
+pid_t wait(int *_Nullable wstatus); --- used by a parent process to wait for the termination
+		of its child processes. with wait(&status); its exit status is stored in the status variable
+
+pid_t waitpid(pid_t pid, int *_Nullable wstatus, int options); --- specify which child process to
+		wait for and how the waiting should be handled
+
+wait3, wait4 --- older versions of waitpid, has more params and options
+		pid_t wait3(int *status, int options, struct rusage *rusage);
+		pid_t wait4(pid_t pid, int *status, int options, struct rusage *rusage);
+
+char *getcwd(char *buf, size_t size); --- get the current working directory
+
+int chdir(const char *path); --- change the current working directory (char *)
+
+int stat(const char *path, struct stat *buf); --- stores file information in a struct stat
+
+int lstat(const char *path, struct stat *buf); --- stat but provides info about symlinks
+		instead of following them
+
+int fstat(int fd, struct stat *buf); --- stat by fd
+
+int unlink(const char *pathname); --- remove a directory entry associated with a file.
+		The file itself will be deleted if there are no more references to it (...hard links)
+		and  no processes holding it open.
+
+int execve(const char *pathname, char *const _Nullable argv[], char *const _Nullable envp[]); ---
+		execute the given program with argv and environmen vars
+
+int dup(int fildes); --- open a new filedescriptor to the same file as the original fd
+
+int dup2(int fildes, int fildes2); --- dup but specify which fd to open the duplicate to
+
+int pipe(int pipefd[2]); --- creates inter-process communication. allows one process to write to pipe
+		and the other process to read from pipe
+
+
+-- PART TWO --
+
 opendir ---
 its used to open a directory stream
 DIR *opendir(const char *dirname);
