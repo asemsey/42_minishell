@@ -1,0 +1,101 @@
+opendir ---
+its used to open a directory stream
+DIR *opendir(const char *dirname);
+DIR * is defined inf <dirent.h> 
+Yes, DIR is a datatype used in C to represent directory streams;
+DIR holds info about an open directory
+if some error happens returns NULL;
+
+
+readdir ---
+struct dirent *readdir(DIR *dir);
+this function returns a pointer to a structure of type struct dirent
+struct dirent {
+    ino_t d_ino;         // File serial number.
+    off_t d_off;         // Directory offset.
+    unsigned short d_reclen; // Length of this record.
+    unsigned char d_type;    // Type of file.
+    char d_name[];       // Null-terminated filename.
+};
+
+
+closedir--- 
+int closedir(DIR *dir);
+return 0 on success and -1 on failure
+
+
+strerror ----
+char *strerror(int errnum);
+errnum - When a function encounters an error, it sets the global variable errno to the appropriate error code,
+which you can then pass to strerror() to get a human-readable error message.
+
+
+perror ----
+void perror(const char *s);
+
+
+isatty -----
+int isatty(int fd);
+to determine whether a given file descriptor is associate dwith terminl or not;
+returns 1 if connected, else 0;
+
+ttyname ----
+char *ttyname(int fd);
+it returns the name of the terminaldevice associated with the file descriptor;
+
+
+ttyslot-------
+int ttyslot(void);
+t's a simple function that retrieves the slot number
+of the terminal associated with the process's standard input.
+
+ioctl -----
+stands for input/output control
+its a system call in c used to control the behavior of os features that are accessed through fd,
+int ioctl(int fd, unsigned long request, ...);
+
+
+getenv -----
+stands for get environment;
+char *getenv(const char *name);
+
+
+tcsetattr ---
+Terminal Control Set Attributes;
+
+
+tcgetattr -----
+is used to get the attributes of a terminal device;
+and allows you to store them in a struct termio
+int tcgetattr(int fd, struct termios *termios_p);
+returns 0 on success and -1 on failure
+
+tgetent-----
+int tgetent(char *bp, const char *name);
+The tgetent() function is part of the curses library in C. It's used to retrieve 
+information about a terminal's capabilities from the terminfo database.
+
+tgetflag-----
+int tgetflag(const char *name);
+to retrieve boolean terminal capabilities from the terminfo database.
+
+tgetnum -----
+its used to retrieve numeric terminal capabilities freom terminfo database;
+int tgetnum(const char *name);
+return -1 if the capability is not defined or cannot be retrieved;
+
+
+tgetstr----
+It's used to retrieve string terminal capabilities from the terminfo database;
+char *tgetstr(const char *name, char **area);
+
+
+tgoto ----
+char *tgoto(const char *cm, int col, int row);
+The tgoto() function returns a pointer to a string containing the constructed
+cursor addressing sequence
+
+tputs ----
+int tputs(const char *str, int affcnt, int (*putc)(int));
+It's used to output a terminal capability string to the terminal
+
