@@ -1,0 +1,22 @@
+to-do:
+-	read the subject
+-	basic setup -- makefile, test.c, ...
+-	understand allowed funcs
+-	learn to use git as a team
+-	come up with a plan
+-	check out bash documentation
+
+
+allowed functions:
+	printf, malloc, free, write, open, read, close, exit
+	signal, sigaction, sigemptyset, sigaddset, kill
+---new---
+	readline, rl_clear_history, rl_on_new_line, rl_replace_line, rl_redisplay
+	add_history, access, fork, wait, waitpid, wait3, wait4,
+	getcwd, chdir, stat, lstat, fstat, unlink, execve, dup, dup2, pipe,
+	opendir, readdir, closedir, strerror, perror, isatty, ttyname,
+	ttyslot, ioctl, getenv, tcsetattr, tcgetattr, tgetent, tgetflag,
+	tgetnum, tgetstr, tgoto, tputs
+
+
+readline docs:	https://tiswww.case.edu/php/chet/readline/readline.html
