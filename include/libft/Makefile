@@ -31,3 +31,5 @@ fclean:
 		rm -f $(OBJ) $(NAME) $(BONUSO)
 
 re: fclean all
+
+.PHONY: re fclean clean bonus all
