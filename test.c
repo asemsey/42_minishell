@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
+/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 15:14:49 by asemsey           #+#    #+#             */
-/*   Updated: 2024/02/21 14:56:12 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/02/21 15:50:31 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,14 @@ int	prompt(void)
 	return (1);
 }
 
+void leak(void)
+{
+	system("leaks minishell");
+}
+
 int main(void)
 {
+	atexit(leak);
 	write(1, "Welcome to minishell :)\n", 24);
 	while (prompt())
 		;

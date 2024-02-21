@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 12:21:56 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/02/21 15:13:20 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/02/21 15:49:38 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,21 @@ int valid_command(char **args)
 
 void	execute_ls(char **args)
 {
-	DIR *d;
+	DIR				*d;
+	struct dirent	*ent;
 
 	if (ft_strcmp(args[0], "ls") == 0)
 	{
 		if (!args[1])
 		{
 			d = opendir(".");
-			// stuff
+			while ((ent = readdir(d)) != NULL)
+			{
+				if (*ent->d_name != '.')
+					printf("%s   ", ent->d_name);
+			}
+			closedir(d);
+			printf("\n");
 		}
 	}
 }
@@ -100,7 +107,6 @@ void	execute_cd(char **args)
 
 void	execute_all(char **args)
 {
-	struct stat *s;
 	if (!valid_command(args))
 	{
 		perror("command not valid");
@@ -110,4 +116,5 @@ void	execute_all(char **args)
 	execute_pwd(args);
 	execute_cd(args);
 	execute_echo(args);
+	execute_ls(args);
 }
