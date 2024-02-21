@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 15:14:49 by asemsey           #+#    #+#             */
-/*   Updated: 2024/02/21 13:02:11 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/02/21 14:56:12 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	prompt(void)
 		return (0);
 	if (!*str)
 		return (1);
+	add_history(str);
 	args = ft_argv(str);
 	if (!dosomething(args))
 	{
@@ -57,5 +58,6 @@ int main(void)
 	write(1, "Welcome to minishell :)\n", 24);
 	while (prompt())
 		;
+	rl_clear_history();
 	return (0);
 }
