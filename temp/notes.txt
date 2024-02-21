@@ -1,11 +1,27 @@
 to-do:
--	understand allowed funcs
--	improve and import libft
--	basic setup -- makefile, test.c, ...
 -	learn to use git as a team
 -	come up with a plan
 -	check out bash documentation
 
+-----------------------------------------------------------------------------
+
+REQUIREMENTS
+-	Display a prompt when waiting for a new command
+-	Have a working history
+-	Search and launch the right executable (based on the PATH variable or
+		using a relative or an absolute path)
+-	Handle ’ (single quote) - prevent the shell from interpreting the meta-
+		characters in the quoted sequence
+-	Handle " (double quote) - ... except for $ (dollar sign)
+-	redirections > < >> <<
+-	pipes (| character). The output of each command in the pipeline is
+		connected to the input of the next command via a pipe
+-	environment variables ($ followed by a sequence of characters)
+-	$? - the exit status of the most recently executed foreground pipeline
+-	ctrl-C, ctrl-D and ctrl-\
+-	echo, cd, pwd, export, unset, env, exit
+
+-----------------------------------------------------------------------------
 
 allowed functions:
 	printf, malloc, free, write, open, read, close, exit
