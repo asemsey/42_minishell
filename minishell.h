@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 10:09:31 by asemsey           #+#    #+#             */
-/*   Updated: 2024/02/21 10:09:15 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/02/21 13:32:19 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,9 @@
 # include <readline/history.h>
 # include "include/libft/libft.h"
 // # include <include/readline-8.2/readline.h>
+
+void	execute_all(char **args);
+void	execute_pwd(char **args);
+int		valid_command(char **args);
 
 #endif

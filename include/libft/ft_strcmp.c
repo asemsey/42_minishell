@@ -1,39 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/05 12:05:17 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/02/21 13:38:14 by fnikzad          ###   ########.fr       */
+/*   Created: 2024/02/21 13:38:29 by fnikzad           #+#    #+#             */
+/*   Updated: 2024/02/21 13:38:55 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_strncmp(const char	*s1, const char	*s2, size_t n)
+int	ft_strcmp(char *s1, char *s2)
 {
-	size_t	i;
+	int i;
 
 	i = 0;
-	while (i < n && s1[i] && s2[i])
-	{
-		if (s1[i] != s2[i])
-		{
-			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-		}
+	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
 		i++;
-	}
-	if (i < n)
-		return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-	return (0);
+	return (s1[i] - s2[i]);
 }
-
-// int main() 
-// {
-// 	char s1[] = "abcjwer";
-// 	char s2[] = "adfghhj";
-// 	//ft_strncmp(s1, s2, 5);
-// 	printf("%d", ft_strncmp(s1, s2, 2));
-// }
