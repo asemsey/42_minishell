@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 10:09:31 by asemsey           #+#    #+#             */
-/*   Updated: 2024/02/21 13:32:19 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/02/21 14:36:11 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,5 @@
 void	execute_all(char **args);
 void	execute_pwd(char **args);
 int		valid_command(char **args);
-
+void	execute_echo(char **args);
 #endif
