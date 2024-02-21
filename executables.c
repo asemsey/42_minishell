@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 12:21:56 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/02/21 14:43:11 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/02/21 15:10:19 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,19 @@ int valid_command(char **args)
     return 0;
 }
 
-// void	execute_ls(char **args)
-// {
-// 	if (ft_strcmp(args[0], "ls") == 0)
-// 	{
-// 		if (!args[1])
-			
-// 	}
-// }
+void	execute_ls(char **args)
+{
+	DIR *d;
+
+	if (ft_strcmp(args[0], "ls") == 0)
+	{
+		if (!args[1])
+		{
+			d = opendir(".");
+			// stuff
+		}
+	}
+}
 
 void	execute_exit(char **args)
 {
@@ -78,6 +83,7 @@ void	execute_cd(char **args)
 
 void	execute_all(char **args)
 {
+	struct stat *s;
 	if (!valid_command(args))
 	{
 		perror("command not valid");
