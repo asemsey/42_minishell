@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 12:21:56 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/02/21 13:41:52 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/02/21 14:39:06 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,18 @@ void	execute_pwd(char **args)
 			printf("%s\n", cwd);
 		else
 			perror("failed");
+	}
+}
+
+void	execute_echo(char **args)
+{
+	int i;
+	if (ft_strcmp(args[0], "echo") == 0)
+	{
+		i = 1;
+		while (args && args[i])
+			printf("%s", args[i++]);
+		printf ("\n");
 	}
 }
 
@@ -58,4 +70,5 @@ void	execute_all(char **args)
 	}
 	execute_pwd(args);
 	execute_cd(args);
+	execute_echo(args);
 }
