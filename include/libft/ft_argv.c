@@ -6,13 +6,26 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 12:26:45 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/02/21 12:07:53 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/02/25 18:09:46 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
 // !!! undefined behaviour for unclosed quotes !!!
+
+static int	skip_quote(char *str)
+{
+	int		i;
+	char	c;
+
+	i = 1;
+	c = *str;
+	while (str && str[i] && str[i] != c)
+		i++;
+	i++;
+	return (i);
+}
 
 static int	count(const char *str)
 {
@@ -27,12 +40,10 @@ static int	count(const char *str)
 			words++;
 		while (*str)
 		{
-			if (*str && *str == '\"')
+			if (*str && (*str == '\"' || *str == '\''))
 			{
-				str++;
-				while (*str && *str != '\"')
-					str++;
-				str++;
+				str += skip_quote((char *)str);
+				continue ;
 			}
 			if (*str && ft_isspace(*str))
 				break ;
@@ -50,11 +61,10 @@ static char	*ft_copy(const char *str, int *len)
 	v[0] = 0;
 	while (str && str[v[0]])
 	{
-		if (str[v[0]] && str[v[0]] == '\"')
+		if (str[v[0]] && (str[v[0]] == '\"' || str[v[0]] == '\''))
 		{
-			while (str[v[0]] && str[v[0] + 1] != '\"')
-				v[0]++;
-			v[0]++;
+			v[0] += skip_quote((char *)&str[v[0]]);
+			continue ;
 		}
 		if (str[v[0]] && ft_isspace(str[v[0]]))
 			break ;
@@ -64,7 +74,7 @@ static char	*ft_copy(const char *str, int *len)
 	if (!s)
 		return (NULL);
 	v[1] = 0;
-	while (*str && *str && v[1] < v[0])
+	while (str && *str && v[1] < v[0])
 		s[v[1]++] = *str++;
 	s[v[1]] = '\0';
 	*len = v[1];
@@ -100,9 +110,10 @@ char	**ft_argv(const char *str)
 // int main()
 // {
 // 	int i = 0;
-// 	const char *input = "";
+// 	const char *input = "cd  \'\'\'  \'";
 
-// 	printf("-%d-\n", count(input));
+// 	// printf("-%d-\n", count(input));
+// 	printf("string:   %s\n", input);
 // 	char **result = ft_argv(input);
 // 	while (result && result[i])
 // 		printf("%s\n", result[i++]);
