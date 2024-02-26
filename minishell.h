@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 10:09:31 by asemsey           #+#    #+#             */
-/*   Updated: 2024/02/21 15:05:19 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/02/26 12:28:24 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,18 @@
 # include <readline/history.h>
 # include "include/libft/libft.h"
 // # include <include/readline-8.2/readline.h>
+
+enum	cmd{
+	CD=0,
+	PWD=1,
+	ECHO=2,
+	EXPORT=3,
+	UNSET=4,
+	ENV=5,
+	EXIT=6
+};
+
+// what
 
 void	execute_all(char **args);
 void	execute_pwd(char **args);
