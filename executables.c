@@ -6,20 +6,26 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 12:21:56 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/02/26 12:28:16 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/02/26 13:16:44 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+int	execute_exit(char **args);
+int	execute_pwd(char **args);
+int	execute_echo(char **args);
+int	execute_cd(char **args);
+
+
 int	valid_command(char **args)
 {
 	if (ft_strcmp(args[0], "cd") == 0)
-		return (CD);
+		return (execute_cd(args));
 	else if (ft_strcmp(args[0], "pwd") == 0)
-		return (PWD);
+		return (execute_pwd(args));
 	else if (ft_strcmp(args[0], "echo") == 0)
-		return (ECHO);
+		return (execute_echo(args));
 	else if (ft_strcmp(args[0], "export") == 0)
 		return (EXPORT);
 	else if (ft_strcmp(args[0], "unset") == 0)
@@ -27,7 +33,7 @@ int	valid_command(char **args)
 	else if (ft_strcmp(args[0], "env") == 0)
 		return (ENV);
 	else if (ft_strcmp(args[0], "exit") == 0)
-		return (EXIT);
+		return (execute_exit(args));
 	return (-1);
 }
 
@@ -42,10 +48,11 @@ int	valid_command(char **args)
 
 
 // wrong!!!
-void	execute_exit(char **args)
+int	execute_exit(char **args)
 {
 	if (ft_strcmp(args[0], "exit") == 0)
 		exit(EXIT_SUCCESS);
+	return (0);
 }
 
 // ???
@@ -63,12 +70,13 @@ int	execute_pwd(char **args)
 }
 
 // done?
-void	execute_echo(char **args)
+int	execute_echo(char **args)
 {
 	int i;
 
+	printf("--echo--\n");
 	if (ft_strcmp(args[0], "echo") != 0)
-		return ;
+		return (0);
 	if (args[1] && ft_strcmp(args[1], "-n") == 0)
 		i = 2;
 	else
@@ -81,13 +89,14 @@ void	execute_echo(char **args)
 	}
 	if (args[1] && ft_strcmp(args[1], "-n") != 0)
 		printf("\n");
+	return (0);
 }
 
 // replace???
-void	execute_cd(char **args)
+int	execute_cd(char **args)
 {
 	if (ft_strcmp(args[0], "cd") != 0)
-		return ;
+		return (0);
 	if (!args[1])
 		chdir(getenv("HOME"));
 	else
@@ -95,6 +104,7 @@ void	execute_cd(char **args)
 		if (chdir(args[1]) != 0)
 			perror("cd");
 	}
+	return (0);
 }
 
 void	execute_all(char **args)

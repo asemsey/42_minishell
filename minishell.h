@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 10:09:31 by asemsey           #+#    #+#             */
-/*   Updated: 2024/02/26 12:28:24 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/02/26 12:47:28 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,12 @@ enum	cmd{
 	EXIT=6
 };
 
-// what
-
 void	execute_all(char **args);
-void	execute_pwd(char **args);
-int		valid_command(char **args);
-void	execute_echo(char **args);
+// void	execute_pwd(char **args);
+// int		valid_command(char **args);
+// void	execute_echo(char **args);
+
+char	*get_var(char *str);
+char	**add_variables(char **argv);
+
 #endif

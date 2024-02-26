@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 15:14:49 by asemsey           #+#    #+#             */
-/*   Updated: 2024/02/21 15:50:31 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/02/26 12:53:02 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,8 @@
 
 int	dosomething(char **argv)
 {
-	// int		i;
-
-	// i = 0;
-	// while (argv[i])
-	// {
-	// 	ft_putstr_fd(argv[i++], 1);
-	// }
-	
+	argv = add_variables(argv);
+	// write(1, "--ok--\n", 7);
 	execute_all(argv);
 	return (1);
 }
@@ -49,7 +43,6 @@ int	prompt(void)
 	}
 	free(str);
 	free_all(args);
-	// write(1, "\n", 1);
 	return (1);
 }
 
