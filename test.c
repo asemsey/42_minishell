@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 15:14:49 by asemsey           #+#    #+#             */
-/*   Updated: 2024/02/27 10:29:53 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/02/27 10:36:47 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,12 @@ int	prompt(void)
 	return (1);
 }
 
-void leak(void)
+void	leak(void)
 {
 	system("leaks minishell");
 }
 
-int main(void)
+int	main(void)
 {
 	atexit(leak);
 	write(1, "Welcome to minishell :)\n", 24);

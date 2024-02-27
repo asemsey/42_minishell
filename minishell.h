@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 10:09:31 by asemsey           #+#    #+#             */
-/*   Updated: 2024/02/27 10:25:04 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/02/27 10:36:15 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include <readline/history.h>
 # include "include/libft/libft.h"
 
-enum	cmd{
+enum	e_cmd{
 	CD=0,
 	PWD=1,
 	ECHO=2,

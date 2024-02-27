@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 12:21:56 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/02/27 10:31:07 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/02/27 10:38:59 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	execute_exit(char **args);
 int	execute_pwd(char **args);
 int	execute_echo(char **args);
 int	execute_cd(char **args);
-
 
 int	valid_command(char **args)
 {
@@ -37,15 +36,16 @@ int	valid_command(char **args)
 	return (-1);
 }
 
-// int valid_command(char **args)
+// int	valid_command(char **args)
 // {
-// 	if (ft_strcmp(args[0], "cd") == 0 || ft_strcmp(args[0], "pwd") == 0 || ft_strcmp(args[0], "echo") == 0 || ft_strcmp(args[0], "export") == 0)
-//         return 1;
-//     if (ft_strcmp(args[0], "unset") == 0 || ft_strcmp(args[0], "env") == 0 || ft_strcmp(args[0], "exit") == 0 || ft_strcmp(args[0], "ls") == 0)
-//         return 1;
-//     return 0;
+// 	if (ft_strcmp(args[0], "cd") == 0 || ft_strcmp(args[0], "pwd") == 0
+// 		|| ft_strcmp(args[0], "echo") == 0 || ft_strcmp(args[0], "export") == 0)
+//		return 1;
+//	if (ft_strcmp(args[0], "unset") == 0 || ft_strcmp(args[0], "env") == 0 ||
+// 	ft_strcmp(args[0], "exit") == 0 || ft_strcmp(args[0], "ls") == 0)
+// 		return 1;
+// 	return 0;
 // }
-
 
 // wrong!!!
 int	execute_exit(char **args)
@@ -58,7 +58,8 @@ int	execute_exit(char **args)
 // ???
 int	execute_pwd(char **args)
 {
-	char cwd[1024];
+	char	cwd[1024];
+
 	if (ft_strncmp(args[0], "pwd", 3) == 0)
 	{
 		if (getcwd(cwd, sizeof(cwd)) != 0)
@@ -113,6 +114,6 @@ void	execute_all(char **args)
 		perror("command not valid");
 		return ;
 	}
+}
 	// valid_command() executes fayezas builins
 	// else other functions from bash (anna?)
-}
