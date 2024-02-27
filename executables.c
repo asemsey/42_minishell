@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 12:21:56 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/02/26 13:16:44 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/02/27 10:31:07 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,8 @@ int	execute_pwd(char **args)
 // done?
 int	execute_echo(char **args)
 {
-	int i;
+	int	i;
 
-	printf("--echo--\n");
 	if (ft_strcmp(args[0], "echo") != 0)
 		return (0);
 	if (args[1] && ft_strcmp(args[1], "-n") == 0)

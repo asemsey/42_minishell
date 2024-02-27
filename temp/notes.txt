@@ -19,7 +19,19 @@ REQUIREMENTS
 -	environment variables ($ followed by a sequence of characters)
 -	$? - the exit status of the most recently executed foreground pipeline
 -	ctrl-C, ctrl-D and ctrl-\
--	echo, cd, pwd, export, unset, env, exit
+-	builtins: echo, cd, pwd, export, unset, env, exit
+
+-----------------------------------------------------------------------------
+
+FROM THE BASH DOCS:
+metacharacter
+	A character that, when unquoted, separates words. A metacharacter is a
+	space, tab, newline, or one of the following characters:
+	‘|’, ‘&’, ‘;’, ‘(’, ‘)’, ‘<’, or ‘>’.
+
+builtin
+	A command that is implemented internally by the shell itself, rather
+	than by an executable program somewhere in the file system.
 
 -----------------------------------------------------------------------------
 

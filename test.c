@@ -6,19 +6,25 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 15:14:49 by asemsey           #+#    #+#             */
-/*   Updated: 2024/02/26 12:53:02 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/02/27 10:29:53 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+char	*replace_var(char *str)
+{
+	char	*new;
 
-
+	new = add_variables(str);
+	if (!new)
+		return (str);
+	free(str);
+	return (new);
+}
 
 int	dosomething(char **argv)
 {
-	argv = add_variables(argv);
-	// write(1, "--ok--\n", 7);
 	execute_all(argv);
 	return (1);
 }
@@ -34,6 +40,7 @@ int	prompt(void)
 	if (!*str)
 		return (1);
 	add_history(str);
+	str = replace_var(str);
 	args = ft_argv(str);
 	if (!dosomething(args))
 	{

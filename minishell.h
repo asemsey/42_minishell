@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 10:09:31 by asemsey           #+#    #+#             */
-/*   Updated: 2024/02/26 12:47:28 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/02/27 10:25:04 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "include/libft/libft.h"
-// # include <include/readline-8.2/readline.h>
 
 enum	cmd{
 	CD=0,
@@ -39,7 +38,6 @@ void	execute_all(char **args);
 // int		valid_command(char **args);
 // void	execute_echo(char **args);
 
-char	*get_var(char *str);
-char	**add_variables(char **argv);
+char	*add_variables(char *str);
 
 #endif
