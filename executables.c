@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executables.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 12:21:56 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/02/27 10:38:59 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/02/29 17:28:50 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	execute_pwd(char **args);
 int	execute_echo(char **args);
 int	execute_cd(char **args);
 
-int	valid_command(char **args)
+int	valid_command(char **args, char **ev)
 {
 	if (ft_strcmp(args[0], "cd") == 0)
 		return (execute_cd(args));
@@ -30,10 +30,23 @@ int	valid_command(char **args)
 	else if (ft_strcmp(args[0], "unset") == 0)
 		return (UNSET);
 	else if (ft_strcmp(args[0], "env") == 0)
-		return (ENV);
+		return (execute_env(args, ev));
 	else if (ft_strcmp(args[0], "exit") == 0)
 		return (execute_exit(args));
 	return (-1);
+}
+
+int	execute_env(char **args, char **ev)
+{
+	int i = 0;
+	if (ft_strcmp(args[0], "env") == 0)
+	{
+		while (ev[i])
+		{
+			printf("%s\n", ev[i++]);
+		}
+	}
+	return (0);
 }
 
 // int	valid_command(char **args)
@@ -107,9 +120,9 @@ int	execute_cd(char **args)
 	return (0);
 }
 
-void	execute_all(char **args)
+void	execute_all(char **args, char **ev)
 {
-	if (valid_command(args) < 0)
+	if (valid_command(args, ev) < 0)
 	{
 		perror("command not valid");
 		return ;

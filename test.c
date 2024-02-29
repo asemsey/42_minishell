@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 15:14:49 by asemsey           #+#    #+#             */
-/*   Updated: 2024/02/27 10:36:47 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/02/29 17:12:32 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,19 @@ char	*replace_var(char *str)
 	return (new);
 }
 
-int	dosomething(char **argv)
+int	dosomething(char **argv, char **ev)
 {
-	execute_all(argv);
+	execute_all(argv, ev);
 	return (1);
 }
 
-int	prompt(void)
+int	prompt(int argc, char **argv, char **ev)
 {
 	char	**args;
 	char	*str;
 
+	(void) argc;
+	(void) argv;
 	str = readline("minishell> ");
 	if (!str)
 		return (0);
@@ -42,7 +44,7 @@ int	prompt(void)
 	add_history(str);
 	str = replace_var(str);
 	args = ft_argv(str);
-	if (!dosomething(args))
+	if (!dosomething(args, ev))
 	{
 		free(str);
 		free_all(args);
@@ -58,11 +60,11 @@ void	leak(void)
 	system("leaks minishell");
 }
 
-int	main(void)
+int	main(int argc, char **argv, char **ev)
 {
 	atexit(leak);
 	write(1, "Welcome to minishell :)\n", 24);
-	while (prompt())
+	while (prompt(argc, argv, ev))
 		;
 	rl_clear_history();
 	return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 10:09:31 by asemsey           #+#    #+#             */
-/*   Updated: 2024/02/27 10:36:15 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/02/29 17:12:48 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,12 @@ enum	e_cmd{
 	EXIT=6
 };
 
-void	execute_all(char **args);
 // void	execute_pwd(char **args);
 // int		valid_command(char **args);
 // void	execute_echo(char **args);
 
 char	*add_variables(char *str);
+void	execute_all(char **args, char **ev);
+int		execute_env(char **args, char **ev);
 
 #endif
