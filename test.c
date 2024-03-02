@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 15:14:49 by asemsey           #+#    #+#             */
-/*   Updated: 2024/02/29 17:12:32 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/03/02 10:03:59 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,37 @@ int	dosomething(char **argv, char **ev)
 	return (1);
 }
 
+char	*remove_char(char *s, char c)
+{
+	int i = 0;
+	int j = 0;
+	int count = 0;
+	char *new_s;
+	while (s && s[i])
+	{
+		if (s[i] == c)
+			count++;
+		i++;
+	}
+	if (count == 2)
+	{
+		new_s = malloc (sizeof(char) * (i + 1));
+		if (!new_s)
+			return (NULL);
+		i = 0;
+		while (s[i])
+		{
+			if (s[i] != c)
+				new_s[j++] = s[i];
+			i++;
+		}
+		new_s[j] = '\0';
+		return (new_s);
+	}
+	return (s);
+}
+
+
 int	prompt(int argc, char **argv, char **ev)
 {
 	char	**args;
@@ -43,6 +74,7 @@ int	prompt(int argc, char **argv, char **ev)
 		return (1);
 	add_history(str);
 	str = replace_var(str);
+	str = remove_char(str, '"');
 	args = ft_argv(str);
 	if (!dosomething(args, ev))
 	{
@@ -55,14 +87,16 @@ int	prompt(int argc, char **argv, char **ev)
 	return (1);
 }
 
-void	leak(void)
-{
-	system("leaks minishell");
-}
+// void	leak(void)
+// {
+// 	system("leaks minishell");
+// }
 
 int	main(int argc, char **argv, char **ev)
 {
-	atexit(leak);
+	// t_mini	shell;
+	
+	// atexit(leak);
 	write(1, "Welcome to minishell :)\n", 24);
 	while (prompt(argc, argv, ev))
 		;

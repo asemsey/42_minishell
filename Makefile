@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+         #
+#    By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/20 15:14:32 by asemsey           #+#    #+#              #
-#    Updated: 2024/02/27 10:25:10 by asemsey          ###   ########.fr        #
+#    Updated: 2024/03/01 13:50:27 by fnikzad          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-SRC =  env.c test.c executables.c
+SRC =  env.c test.c executables.c export.c
 
 CFLAGS = -Wall -Wextra -Werror
 

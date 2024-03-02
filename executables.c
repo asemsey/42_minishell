@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 12:21:56 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/02/29 17:28:50 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/03/01 18:42:06 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	valid_command(char **args, char **ev)
 	else if (ft_strcmp(args[0], "echo") == 0)
 		return (execute_echo(args));
 	else if (ft_strcmp(args[0], "export") == 0)
-		return (EXPORT);
+		return (ex_export(args, ev));
 	else if (ft_strcmp(args[0], "unset") == 0)
 		return (UNSET);
 	else if (ft_strcmp(args[0], "env") == 0)
@@ -38,6 +38,9 @@ int	valid_command(char **args, char **ev)
 
 int	execute_env(char **args, char **ev)
 {
+	if (!g_env)
+		get_ev(ev);
+	ev = g_env;
 	int i = 0;
 	if (ft_strcmp(args[0], "env") == 0)
 	{
