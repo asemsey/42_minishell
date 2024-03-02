@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 10:09:31 by asemsey           #+#    #+#             */
-/*   Updated: 2024/03/02 10:01:54 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/03/02 16:23:15 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 # include <readline/history.h>
 # include "include/libft/libft.h"
 
-char **g_env;
 
 enum	e_cmd{
 	CD=0,
@@ -40,22 +39,18 @@ typedef struct s_mini
 	char **env;
 } t_mini;
 
-// typedef struct s_mini
-// {
-// 	char **env;
-// } t_mini;
 
 // void	execute_pwd(char **args);
 // int		valid_command(char **args);
 // void	execute_echo(char **args);
 
 char	*add_variables(char *str);
-void	execute_all(char **args, char **ev);
-int		execute_env(char **args, char **ev);
-int	ex_export(char **args, char **ev);
-void	get_ev(char **ev);
+void	execute_all(char **args, t_mini *shell);
+int	execute_env(char **args, t_mini *shell);
+int	ex_export(char **args, t_mini *shell);
+void	get_ev(t_mini *shell, char **ev);
 void	ft_free (char **s);
-
+int	valid_export(char **args);
 
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 15:14:49 by asemsey           #+#    #+#             */
-/*   Updated: 2024/03/02 10:03:59 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/03/02 10:10:18 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ char	*replace_var(char *str)
 	return (new);
 }
 
-int	dosomething(char **argv, char **ev)
+int	dosomething(char **argv, t_mini *shell)
 {
-	execute_all(argv, ev);
+	execute_all(argv, shell);
 	return (1);
 }
 
@@ -60,7 +60,7 @@ char	*remove_char(char *s, char c)
 }
 
 
-int	prompt(int argc, char **argv, char **ev)
+int	prompt(int argc, char **argv, t_mini *shell)
 {
 	char	**args;
 	char	*str;
@@ -76,7 +76,7 @@ int	prompt(int argc, char **argv, char **ev)
 	str = replace_var(str);
 	str = remove_char(str, '"');
 	args = ft_argv(str);
-	if (!dosomething(args, ev))
+	if (!dosomething(args, shell))
 	{
 		free(str);
 		free_all(args);
@@ -94,11 +94,12 @@ int	prompt(int argc, char **argv, char **ev)
 
 int	main(int argc, char **argv, char **ev)
 {
-	// t_mini	shell;
+	t_mini	shell;
 	
 	// atexit(leak);
+	get_ev(&shell, ev);
 	write(1, "Welcome to minishell :)\n", 24);
-	while (prompt(argc, argv, ev))
+	while (prompt(argc, argv, &shell))
 		;
 	rl_clear_history();
 	return (0);
