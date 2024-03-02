@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 17:29:00 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/03/02 16:42:48 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/03/02 19:03:05 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,3 +162,55 @@ void	get_ev(t_mini *shell, char **ev)
 	shell->env[i] = NULL;
 }
 
+void	catch_var(t_mini *shell, char *s)
+{
+	int j;
+	if (search_var(shell, s) == 0)
+	{
+		while (shell->env[shell->var_num] != NULL)
+		{
+			j = 0;
+			while (shell->env[shell->var_num][j] && shell->env[shell->var_num][j] != '=')
+			{
+				
+				j++;
+			}
+			if (shell->env[shell->var_num][j] == '=')
+				j++;
+			while (shell->env[shell->var_num][j] != '\0')
+			{
+				write (1, &shell->env[shell->var_num][j++], 1);
+			}
+			shell->var_num++;
+		}
+	}
+}
+
+
+int	search_var(t_mini *shell, char *s)
+{
+	int i = 0;
+	int j;
+	int k;
+	while (shell->env[i])
+	{
+		j = 0;
+		k = 0;
+		if (ft_strncmp(shell->env[i], s, ft_strchr(shell->env[i], '=') - shell->env[i]) == 0)
+		{
+			while (shell->env[i][j] && shell->env[i][j] != '=')
+			{
+				if (shell->env[i][j] == s[k])
+					k++;
+				j++;
+			}
+			if (j == k)
+			{
+				shell->var_num = i - 1;
+				return (0);
+			}
+		}
+		i++;
+	}
+	return (1);
+}

@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 12:21:56 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/03/02 10:32:33 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/03/02 19:29:13 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	execute_exit(char **args);
 int	execute_pwd(char **args);
-int	execute_echo(char **args);
 int	execute_cd(char **args);
 
 int	valid_command(char **args, t_mini *shell)
@@ -24,7 +23,7 @@ int	valid_command(char **args, t_mini *shell)
 	else if (ft_strcmp(args[0], "pwd") == 0)
 		return (execute_pwd(args));
 	else if (ft_strcmp(args[0], "echo") == 0)
-		return (execute_echo(args));
+		return (execute_echo(args, shell));
 	else if (ft_strcmp(args[0], "export") == 0)
 		return (ex_export(args, shell));
 	else if (ft_strcmp(args[0], "unset") == 0)
@@ -86,12 +85,19 @@ int	execute_pwd(char **args)
 }
 
 // done?
-int	execute_echo(char **args)
+int	execute_echo(char **args, t_mini *shell)
 {
 	int	i;
 
+	(void) shell;
 	if (ft_strcmp(args[0], "echo") != 0)
 		return (0);
+	// if (*args[1] == '$')
+	// {
+	// 	args[1]++;
+	// 	catch_var(shell, args[1]);
+	// 	return (0);
+	// }
 	if (args[1] && ft_strcmp(args[1], "-n") == 0)
 		i = 2;
 	else

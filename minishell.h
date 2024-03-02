@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 10:09:31 by asemsey           #+#    #+#             */
-/*   Updated: 2024/03/02 16:23:15 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/03/02 17:41:11 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ enum	e_cmd{
 
 typedef struct s_mini
 {
-	char **env;
+	char		**env;
+	int			var_num;
 } t_mini;
 
 
@@ -52,5 +53,9 @@ void	get_ev(t_mini *shell, char **ev);
 void	ft_free (char **s);
 int	valid_export(char **args);
 
+
+int	search_var(t_mini *shell, char *s);
+void	catch_var(t_mini *shell, char *s);
+int	execute_echo(char **args, t_mini *shell);
 
 #endif
