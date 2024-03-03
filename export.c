@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 17:29:00 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/03/03 17:10:06 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/03/03 17:16:47 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ int	ex_export(char **args, t_mini *shell)
 int	valid_export(char **args)
 {
 	int i = 1;
+	int eq = 0;
 	if (ft_strcmp(args[0], "export") == 0)
 	{
 		while (args[i])
@@ -136,11 +137,17 @@ int	valid_export(char **args)
 					(args[i][j] >= '0' && args[i][j] <= '9') || 
 					args[i][j] == '_' || 
 					(j > 0 && args[i][j] == '='))) 
-					return 1;
+					{
+						return (1);
+					}
+				if (args[i][j] == '=')
+					eq++;
 				j++;
 			}
 			i++;
 		}
+		if (eq > 1)
+			return (1);
 		
 	}
 	return (0);
@@ -163,8 +170,6 @@ void	get_ev(t_mini *shell, char **ev)
 	}
 	shell->env[i] = NULL;
 }
-
-
 
 void	search_var(t_mini *shell, char *s)
 {
