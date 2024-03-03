@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 17:29:00 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/03/02 19:03:05 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/03/03 17:10:06 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	ft_free (char **s)
 	}
 	free (s);
 }
+
 
 int	ex_export(char **args, t_mini *shell)
 {
@@ -78,7 +79,8 @@ int	ex_export(char **args, t_mini *shell)
 					
 					if (ft_strncmp(shell->env[l], args[j], ft_strchr(args[j], '=') - args[j]) == 0)
 					{
-						j++;
+						free (shell->env[l]);
+						shell->env[l] = ft_strdup(args[j++]);
 						l = 0;
 						if (!args[j])
 							return (0);
@@ -162,55 +164,24 @@ void	get_ev(t_mini *shell, char **ev)
 	shell->env[i] = NULL;
 }
 
-void	catch_var(t_mini *shell, char *s)
-{
-	int j;
-	if (search_var(shell, s) == 0)
-	{
-		while (shell->env[shell->var_num] != NULL)
-		{
-			j = 0;
-			while (shell->env[shell->var_num][j] && shell->env[shell->var_num][j] != '=')
-			{
-				
-				j++;
-			}
-			if (shell->env[shell->var_num][j] == '=')
-				j++;
-			while (shell->env[shell->var_num][j] != '\0')
-			{
-				write (1, &shell->env[shell->var_num][j++], 1);
-			}
-			shell->var_num++;
-		}
-	}
-}
 
 
-int	search_var(t_mini *shell, char *s)
+void	search_var(t_mini *shell, char *s)
 {
 	int i = 0;
-	int j;
-	int k;
+	(void)s;
+	char **vars = NULL;
+	if (s)
+		s++;
 	while (shell->env[i])
 	{
-		j = 0;
-		k = 0;
-		if (ft_strncmp(shell->env[i], s, ft_strchr(shell->env[i], '=') - shell->env[i]) == 0)
+		if (vars)
+			ft_free (vars);
+		vars = ft_split(shell->env[i], '=');
+		if (ft_strcmp(vars[0], s) == 0)
 		{
-			while (shell->env[i][j] && shell->env[i][j] != '=')
-			{
-				if (shell->env[i][j] == s[k])
-					k++;
-				j++;
-			}
-			if (j == k)
-			{
-				shell->var_num = i - 1;
-				return (0);
-			}
+			printf ("%s", vars[1]);
 		}
 		i++;
 	}
-	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 12:21:56 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/03/02 19:29:13 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/03/03 16:01:40 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,25 +88,26 @@ int	execute_pwd(char **args)
 int	execute_echo(char **args, t_mini *shell)
 {
 	int	i;
-
-	(void) shell;
-	if (ft_strcmp(args[0], "echo") != 0)
-		return (0);
-	// if (*args[1] == '$')
-	// {
-	// 	args[1]++;
-	// 	catch_var(shell, args[1]);
-	// 	return (0);
-	// }
-	if (args[1] && ft_strcmp(args[1], "-n") == 0)
-		i = 2;
-	else
-		i = 1;
-	while (args[i])
+	
+	if (ft_strcmp(args[0], "echo") == 0)
 	{
-		printf("%s", args[i++]);
-		if (args[i])
-			printf(" ");
+		
+		if (args[2] && args[1] && ft_strcmp(args[1], "-n") == 0)
+			i = 2;
+		else
+			i = 1;
+		while (args[i])
+		{
+			if (args[i][0] == '$' && shell != NULL)
+			{
+				search_var(shell, args[i]);
+				i++;
+			}
+			else 
+				printf("%s", args[i++]);
+			if (args[i])
+				printf(" ");
+		}
 	}
 	if (args[1] && ft_strcmp(args[1], "-n") != 0)
 		printf("\n");
