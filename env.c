@@ -6,24 +6,24 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 12:34:45 by asemsey           #+#    #+#             */
-/*   Updated: 2024/02/27 10:24:44 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/03/04 20:07:59 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		check_var(char *name);
 char	*var_name(char *str);
-int		var_len(char *str);
+int		valid_var_name(char c, int index);
+int		var_len(t_mini *shell, char *str);
+int		var_cat(t_mini *shell, char **new, char *name, int max_len);
 
 // add all $ variables to a str
-char	*add_variables(char *str)
+char	*add_variables(t_mini *shell, char *str)
 {
 	char	*new;
-	char	*name;
 	int		len[2];
 
-	len[0] = var_len(str) + 1;
+	len[0] = var_len(shell, str) + 1;
 	if (len[0] - 1 < 1)
 		return (NULL);
 	new = (char *)malloc(sizeof(char) * (len[0]));
@@ -34,27 +34,16 @@ char	*add_variables(char *str)
 	{
 		if (*str == '$')
 		{
-			name = var_name(++str);
 			new[len[1]] = '\0';
-			len[1] = ft_strlcat(new, getenv(name), len[0]);
-			str += ft_strlen(name);
-			free(name);
+			str++;
+			str += var_cat(shell, &new, var_name(str), len[0]);
+			len[1] = ft_strlen(new);
 		}
 		else
 			new[len[1]++] = *str++;
 	}
+	new[len[1]] = '\0';
 	return (new);
-}
-
-// check if name exists in env, return the length
-int	check_var(char *name)
-{
-	char	*env;
-
-	env = getenv(name);
-	if (!env)
-		return (-1);
-	return (ft_strlen(env));
 }
 
 // get the name of the next var in str
@@ -64,7 +53,7 @@ char	*var_name(char *str)
 	int		i;
 
 	i = 0;
-	while (str[i] && 'A' <= str[i] && str[i] <= 'Z')
+	while (valid_var_name(str[i], i))
 		i++;
 	i++;
 	name = (char *)malloc(sizeof(char) * (i));
@@ -75,7 +64,7 @@ char	*var_name(char *str)
 }
 
 // get the total len after replacing all $
-int	var_len(char *str)
+int	var_len(t_mini *shell, char *str)
 {
 	char	*env;
 	char	*name;
@@ -87,12 +76,12 @@ int	var_len(char *str)
 		if (*str == '$')
 		{
 			name = var_name(++str);
-			if (check_var(name) < 1)
+			env = search_var(shell, name);
+			if (!env)
 				return (free(name), -1);
-			env = getenv(name);
 			len += ft_strlen(env);
 			str += ft_strlen(name);
-			env = NULL;
+			free(env);
 			free(name);
 		}
 		else
@@ -102,6 +91,38 @@ int	var_len(char *str)
 		}
 	}
 	return (len);
+}
+
+// concatenates the 'name' variable to 'new'
+int	var_cat(t_mini *shell, char **new, char *name, int max_len)
+{
+	char	*env;
+	int		skip;
+
+	env = search_var(shell, name);
+	if (!env)
+		return (free(name), -1);
+	ft_strlcat(*new, env, max_len);
+	skip = ft_strlen(name);
+	free(name);
+	free(env);
+	return (skip);
+}
+
+// 1 for valid variable character
+int	valid_var_name(char c, int index)
+{
+	if (index == 0)
+	{
+		if (!(ft_isalpha(c) || c == '_' ))
+			return (0);
+	}
+	else
+	{
+		if (!(ft_isalnum(c) || c == '_' ))
+			return (0);
+	}
+	return (1);
 }
 
 // int	main(void)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
+/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 10:09:31 by asemsey           #+#    #+#             */
-/*   Updated: 2024/03/04 10:21:53 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/03/04 19:09:08 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,18 +45,18 @@ typedef struct s_mini
 // int		valid_command(char **args);
 // void	execute_echo(char **args);
 
-char	*add_variables(char *str);
+char	*add_variables(t_mini *shell, char *str);
 void	execute_all(char **args, t_mini *shell);
-int	execute_env(char **args, t_mini *shell);
-int	ex_export(char **args, t_mini *shell);
+int		execute_env(char **args, t_mini *shell);
+int		ex_export(char **args, t_mini *shell);
 void	get_ev(t_mini *shell, char **ev);
 void	ft_free (char **s);
-int	valid_export(char **args);
+int		valid_export(char **args);
 
 
-void	search_var(t_mini *shell, char *s);
-int	execute_echo(char **args, t_mini *shell);
+char	*search_var(t_mini *shell, char *s);
+int		execute_echo(char **args, t_mini *shell);
 
-int	ex_unset(char **args, t_mini *shell);
+int		ex_unset(char **args, t_mini *shell);
 
 #endif
