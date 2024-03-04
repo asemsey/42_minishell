@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 10:09:31 by asemsey           #+#    #+#             */
-/*   Updated: 2024/03/03 16:02:04 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/03/04 10:21:53 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,7 @@ int	valid_export(char **args);
 
 void	search_var(t_mini *shell, char *s);
 int	execute_echo(char **args, t_mini *shell);
+
+int	ex_unset(char **args, t_mini *shell);
 
 #endif

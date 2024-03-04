@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 15:14:49 by asemsey           #+#    #+#             */
-/*   Updated: 2024/03/03 12:54:11 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/03/03 17:55:02 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	prompt(int argc, char **argv, t_mini *shell)
 	if (!*str)
 		return (1);
 	add_history(str);
-	str = replace_var(str);
+	// str = replace_var(str);
 	str = remove_char(str, '"');
 	args = ft_argv(str);
 	if (!dosomething(args, shell))

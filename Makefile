@@ -6,13 +6,13 @@
 #    By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/20 15:14:32 by asemsey           #+#    #+#              #
-#    Updated: 2024/03/01 13:50:27 by fnikzad          ###   ########.fr        #
+#    Updated: 2024/03/04 10:16:50 by fnikzad          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-SRC =  env.c test.c executables.c export.c
+SRC =  env.c test.c executables.c export.c unset.c 
 
 CFLAGS = -Wall -Wextra -Werror
 

@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 12:21:56 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/03/03 16:01:40 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/03/04 10:21:41 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	valid_command(char **args, t_mini *shell)
 	else if (ft_strcmp(args[0], "export") == 0)
 		return (ex_export(args, shell));
 	else if (ft_strcmp(args[0], "unset") == 0)
-		return (UNSET);
+		return (ex_unset(args, shell));
 	else if (ft_strcmp(args[0], "env") == 0)
 		return (execute_env(args, shell));
 	else if (ft_strcmp(args[0], "exit") == 0)
@@ -72,7 +72,7 @@ int	execute_exit(char **args)
 int	execute_pwd(char **args)
 {
 	char	cwd[1024];
-
+	
 	if (ft_strncmp(args[0], "pwd", 3) == 0)
 	{
 		if (getcwd(cwd, sizeof(cwd)) != 0)
@@ -98,6 +98,22 @@ int	execute_echo(char **args, t_mini *shell)
 			i = 1;
 		while (args[i])
 		{
+			if (ft_strcmp(args[i], "$PWD") == 0)
+			{
+				char	cwd[1024];
+
+				if (getcwd(cwd, sizeof(cwd)) != 0)
+					printf("%s", cwd);
+				else
+					perror("failed");
+				if (args[i + 1])
+				{
+					printf(" ");
+					i++;
+				}
+				else
+					return (0);
+			}
 			if (args[i][0] == '$' && shell != NULL)
 			{
 				search_var(shell, args[i]);

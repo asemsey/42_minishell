@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 17:29:00 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/03/03 17:16:47 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/03/04 10:48:09 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	ft_str_arr(char **s)
 		i++;
 	return (i);
 }
+
 void	ft_free (char **s)
 {
 	int i = 0;
@@ -146,7 +147,8 @@ int	valid_export(char **args)
 			}
 			i++;
 		}
-		if (eq > 1)
+		i--;
+		if (eq != i)
 			return (1);
 		
 	}
