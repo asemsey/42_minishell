@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 17:29:00 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/03/04 10:48:09 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/03/04 17:39:57 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,6 +187,7 @@ void	search_var(t_mini *shell, char *s)
 		vars = ft_split(shell->env[i], '=');
 		if (ft_strcmp(vars[0], s) == 0)
 		{
+			shell->var_num = i;
 			printf ("%s", vars[1]);
 		}
 		i++;
