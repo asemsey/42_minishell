@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 12:21:56 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/03/04 10:21:41 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/03/04 12:51:34 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,22 +98,22 @@ int	execute_echo(char **args, t_mini *shell)
 			i = 1;
 		while (args[i])
 		{
-			if (ft_strcmp(args[i], "$PWD") == 0)
-			{
-				char	cwd[1024];
+			// if (ft_strcmp(args[i], "$PWD") == 0)
+			// {
+			// 	char	cwd[1024];
 
-				if (getcwd(cwd, sizeof(cwd)) != 0)
-					printf("%s", cwd);
-				else
-					perror("failed");
-				if (args[i + 1])
-				{
-					printf(" ");
-					i++;
-				}
-				else
-					return (0);
-			}
+			// 	if (getcwd(cwd, sizeof(cwd)) != 0)
+			// 		printf("%s", cwd);
+			// 	else
+			// 		perror("failed");
+			// 	if (args[i + 1])
+			// 	{
+			// 		printf(" ");
+			// 		i++;
+			// 	}
+			// 	else
+			// 		return (0);
+			// }
 			if (args[i][0] == '$' && shell != NULL)
 			{
 				search_var(shell, args[i]);
@@ -142,6 +142,7 @@ int	execute_cd(char **args)
 		if (chdir(args[1]) != 0)
 			perror("cd");
 	}
+	
 	return (0);
 }
 

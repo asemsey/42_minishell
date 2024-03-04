@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 15:14:49 by asemsey           #+#    #+#             */
-/*   Updated: 2024/03/03 17:55:02 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/03/04 17:09:23 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*remove_char(char *s, char c)
 			count++;
 		i++;
 	}
-	if (count == 2)
+	if (count % 2 == 0)
 	{
 		new_s = malloc (sizeof(char) * (i + 1));
 		if (!new_s)
@@ -73,9 +73,14 @@ int	prompt(int argc, char **argv, t_mini *shell)
 	if (!*str)
 		return (1);
 	add_history(str);
-	// str = replace_var(str);
-	str = remove_char(str, '"');
+	str = replace_var(str);
 	args = ft_argv(str);
+	int i = -1;
+	while (args[++i])
+	{
+		args[i] = remove_char(args[i], '"');
+		args[i] = remove_char(args[i], 39);
+	}
 	if (!dosomething(args, shell))
 	{
 		free(str);

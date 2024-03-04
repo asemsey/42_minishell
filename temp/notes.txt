@@ -1,7 +1,8 @@
 to-do:
--	learn to use git as a team
--	come up with a plan
--	check out bash documentation
+-	check for unclosed quotes
+-	remove ' with " //anna ithink i removed single quotes you can check
+-	pipes
+-	$VAR$VAR2
 
 -----------------------------------------------------------------------------
 
