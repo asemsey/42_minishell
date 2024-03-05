@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 15:14:49 by asemsey           #+#    #+#             */
-/*   Updated: 2024/03/04 20:08:20 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/03/05 09:46:27 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,6 @@ char	*replace_var(t_mini *shell, char *str)
 		return (str);
 	free(str);
 	return (new);
-}
-
-int	dosomething(char **argv, t_mini *shell)
-{
-	execute_all(argv, shell);
-	return (1);
 }
 
 // changed malloc size because it was too long (... - count)
@@ -44,7 +38,7 @@ char	*remove_char(char *s, char c)
 	}
 	if (count % 2 != 0)
 		return (s);
-	new_s = malloc (sizeof(char) * (i - count + 1));
+	new_s = (char *)malloc(sizeof(char) * (i - count + 1));
 	if (!new_s)
 		return (NULL);
 	i = 0;
@@ -59,57 +53,50 @@ char	*remove_char(char *s, char c)
 	return (new_s);
 }
 
-void	ft_print_env(t_mini *shell)
+void	remove_quotes(t_mini *shell)
 {
-	char	**env;
-	int		i;
+	int	i;
 
-	env = shell->env;
 	i = 0;
-	while (env && env[i])
+	while (shell->argv && shell->argv[i])
 	{
-		printf("%d || %s\n", i, env[i]);
+		shell->argv[i] = remove_char(shell->argv[i], '\"');
+		shell->argv[i] = remove_char(shell->argv[i], '\'');
 		i++;
 	}
 }
 
-char	**remove_quotes(char **args)
+//  0-end  1-next_prompt
+int	free_memory(t_mini *shell, char *str, int ret)
 {
-	int		i;
-
-	i = 0;
-	while (args && args[i])
+	if (str)
+		free(str);
+	if (shell)
 	{
-		args[i] = remove_char(args[i], '\"');
-		args[i] = remove_char(args[i], '\'');
-		i++;
+		free_all(shell->argv);
+		free(shell->arg_type);
+		if (ret == 0)
+			free_all(shell->env);
 	}
-	return (args);
+	return (ret);
 }
 
 int	prompt(t_mini *shell)
 {
-	char	**args;
 	char	*str;
 
 	str = readline("minishell> ");
 	if (!str)
-		return (0);
+		return (free_memory(shell, NULL, 0));
 	if (!*str)
-		return (1);
+		return (free(str), 1);
 	add_history(str);
 	str = replace_var(shell, str);
-	args = ft_argv(str);
-	args = remove_quotes(args);
-	if (!dosomething(args, shell))
-	{
-		free(str);
-		free_all(args);
-		return (0);
-	}
-	free(str);
-	free_all(args);
-	return (1);
+	shell->argv = ft_argv(str);
+	remove_quotes(shell);
+	if (!execute_all(shell))
+		return (free_memory(shell, str, 1));
+	return (free_memory(shell, str, 1));
 }
 
 void	leak(void)

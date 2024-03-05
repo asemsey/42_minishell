@@ -6,61 +6,30 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 17:29:00 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/03/04 20:02:47 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/03/05 09:23:29 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_str_arr(char **s)
+int	len_str_arr(char **s)
 {
-	int i;
+	int	i;
+
 	i = 0;
 	while (s && s[i])
 		i++;
 	return (i);
 }
 
-void	ft_free(char **s)
-{
-	int i = 0;
-	while (s && s[i])
-	{
-		free (s[i++]);
-	}
-	free (s);
-}
-
-// int	ex_export(char **args, t_mini *shell)
-// {
-// 	int		i;
-// 	// int		j;
-// 	// int		l;
-// 	char	**new_ev;
-
-// 	i = 0;
-// 	// j = 1;
-// 	if (ft_strcmp(args[0], "export") != 0 || !args[1])
-// 	{
-// 		while (shell->env[i])
-// 			printf("declare -x %s\n", shell->env[i++]);
-// 		return (0);
-// 	}
-// 	if(!valid_export(args))
-// 	{
-// 		write(1, "inalid variable\n", 16);
-// 		return (0);
-// 	}
-// }
-
-int	ex_export(char **args, t_mini *shell)
+int	ex_export(t_mini *shell)
 {
 	int i = 0;
 	int j = 1;
 	int l;
 	char **new_ev;
 
-	if (ft_strcmp(args[0], "export") == 0 && !args[1])
+	if (ft_strcmp(shell->argv[0], "export") == 0 && !shell->argv[1])
 	{
 		while (shell->env[i])
 		{
@@ -68,7 +37,7 @@ int	ex_export(char **args, t_mini *shell)
 		}
 		return (0);
 	}
-	if(valid_export(args) == 1)
+	if(valid_export(shell->argv) == 1)
 	{
 		write (1, "wrong\n", 6);
 		return (0);
@@ -77,16 +46,16 @@ int	ex_export(char **args, t_mini *shell)
 	while (shell->env[i] != NULL)
 	{
 		j = 1;
-		while (args[j])
+		while (shell->argv[j])
 		{
 			l = 0;
 			while (shell->env[l])
 			{
-				if (ft_strncmp(shell->env[l], args[j], ft_strchr(args[j], '=') - args[j]) == 0)
+				if (ft_strncmp(shell->env[l], shell->argv[j], ft_strchr(shell->argv[j], '=') - shell->argv[j]) == 0)
 				{
 					free (shell->env[l]);
-					shell->env[l] = ft_strdup(args[j++]);
-					if (!args[j])
+					shell->env[l] = ft_strdup(shell->argv[j++]);
+					if (!shell->argv[j])
 						return (0);
 				}
 				l++;
@@ -99,23 +68,23 @@ int	ex_export(char **args, t_mini *shell)
 	while (shell->env[i])
 	{
 		j = 1;
-		while (args[j])
+		while (shell->argv[j])
 		{
 			l = 0;
 			while (shell->env[l])
 			{
 				
-				if (ft_strncmp(shell->env[l], args[j], ft_strchr(args[j], '=') - args[j]) == 0)
+				if (ft_strncmp(shell->env[l], shell->argv[j], ft_strchr(shell->argv[j], '=') - shell->argv[j]) == 0)
 				{
 					free (shell->env[l]);
-					shell->env[l] = ft_strdup(args[j++]);
+					shell->env[l] = ft_strdup(shell->argv[j++]);
 					l = 0;
-					if (!args[j])
+					if (!shell->argv[j])
 						return (0);
 				}
 				l++;
 			}
-			int k = ft_str_arr(shell->env);
+			int k = len_str_arr(shell->env);
 			new_ev = (char **) malloc (sizeof(char *) * (k + 2));
 			if (!new_ev)
 				return (-1);
@@ -125,10 +94,10 @@ int	ex_export(char **args, t_mini *shell)
 				new_ev[k] = ft_strdup(shell->env[k]);
 				k++;
 			}
-			new_ev[k++] = ft_strdup(args[j++]);
+			new_ev[k++] = ft_strdup(shell->argv[j++]);
 			new_ev[k] = NULL;
 			shell->env = new_ev;
-			if (!args[j])
+			if (!shell->argv[j])
 				return (0);
 		}
 		i++;
@@ -183,6 +152,7 @@ void	get_ev(t_mini *shell, char **ev)
 }
 
 // s now needs to be the name without '$' !!!
+// use var_name() to get s
 char	*search_var(t_mini *shell, char *s)
 {
 	int		i;
@@ -200,11 +170,22 @@ char	*search_var(t_mini *shell, char *s)
 		{
 			shell->var_num = i;
 			content = ft_strdup(vars[1]);
-			ft_free(vars);
+			free_all(vars);
 			return (content);
 		}
-		ft_free(vars);
+		free_all(vars);
 		i++;
 	}
 	return (NULL);
 }
+
+
+// void	ft_free(char **s)
+// {
+// 	int i = 0;
+// 	while (s && s[i])
+// 	{
+// 		free (s[i++]);
+// 	}
+// 	free (s);
+// }

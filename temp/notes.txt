@@ -1,8 +1,26 @@
 to-do:
--	check for unclosed quotes
--	remove ' with " //anna ithink i removed single quotes you can check
+-	Error for unclosed quotes
+-	do not remove quotes inside quotes!!!
+-	quote handling (see below)
 -	pipes
+done:
 -	$VAR$VAR2
+
+-----------------------------------------------------------------------------
+
+HANDLING QUOTES
+-	' inside " is normal text but interpret $ !!!
+		( echo "'$USER'" -> 'fnikzad' )
+-	" inside ' is normal text, no interpretation
+-	$ inside " is a variable
+-	$ inside ' is normal text
+-	|  &  ;  (  )  <  > inside quotes are normal text
+
+-> separate argv first, leave in quotes
+		if *str == '\"'		only check for $
+		if *str == '\''		leave as text
+		if *str == ???		interpret all metacharacters
+-> change storage of argv? save to struct and add interpretation type
 
 -----------------------------------------------------------------------------
 
@@ -12,7 +30,7 @@ REQUIREMENTS
 -	Search and launch the right executable (based on the PATH variable or
 		using a relative or an absolute path)
 -	Handle ’ (single quote) - prevent the shell from interpreting the meta-
-		characters in the quoted sequence
+		characters in the quoted sequence ( |  &  ;  (  )  <  > )
 -	Handle " (double quote) - ... except for $ (dollar sign)
 -	redirections > < >> <<
 -	pipes (| character). The output of each command in the pipeline is
