@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 10:09:31 by asemsey           #+#    #+#             */
-/*   Updated: 2024/03/05 09:40:55 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/03/06 18:43:41 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,16 @@ typedef struct s_mini
 	int			*arg_type;
 } t_mini;
 
-void	get_ev(t_mini *shell, char **ev);
+// parsing
+
+void	replace_var(t_mini *shell);
+void	remove_quotes(t_mini *shell);
+int		get_arg_types(t_mini *shell);
 char	*add_variables(t_mini *shell, char *str);
+int		valid_var_name(char c, int index);
 int		valid_export(char **args);
+
+void	get_ev(t_mini *shell, char **ev);
 char	*search_var(t_mini *shell, char *s);
 
 // builtins
@@ -60,7 +67,10 @@ int		ex_unset(t_mini *shell);
 
 // helpers
 
+int		len_str_arr(char **s);
 void	*free_ints(int **ints, int size);
+char	*remove_char(char *s, char c);
+void	ft_print_env(t_mini *shell);
 
 // void	execute_pwd(char **args);
 // void	ft_free (char **s);

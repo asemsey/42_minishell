@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 12:21:56 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/03/05 09:45:33 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/03/06 16:33:24 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,13 @@ int	valid_command(t_mini *shell);
 
 int	execute_all(t_mini *shell)
 {
-	if (valid_command(shell) < 0)
+	int	ret;
+
+	ret = valid_command(shell);
+	if (ret < 0)
 	{
-		perror("command not valid");
+		if (ret == -1)
+			perror("command not valid");
 		return (0);
 	}
 	return (1);

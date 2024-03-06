@@ -1,9 +1,9 @@
 to-do:
--	Error for unclosed quotes
--	do not remove quotes inside quotes!!!
--	quote handling (see below)
 -	pipes
 done:
+-	Error for unclosed quotes (created leaks... oops)
+-	do not remove quotes inside quotes!!!
+-	quote handling (see below)
 -	$VAR$VAR2
 
 -----------------------------------------------------------------------------
@@ -17,8 +17,8 @@ HANDLING QUOTES
 -	|  &  ;  (  )  <  > inside quotes are normal text
 
 -> separate argv first, leave in quotes
-		if *str == '\"'		only check for $
 		if *str == '\''		leave as text
+		if *str == '\"'		only check for $
 		if *str == ???		interpret all metacharacters
 -> change storage of argv? save to struct and add interpretation type
 

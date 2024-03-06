@@ -6,40 +6,29 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 17:29:00 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/03/05 09:23:29 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/03/06 15:17:07 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	len_str_arr(char **s)
-{
-	int	i;
-
-	i = 0;
-	while (s && s[i])
-		i++;
-	return (i);
-}
-
 int	ex_export(t_mini *shell)
 {
-	int i = 0;
-	int j = 1;
-	int l;
-	char **new_ev;
+	int		i;
+	int		j;
+	int		l;
+	char	**new_ev;
 
 	if (ft_strcmp(shell->argv[0], "export") == 0 && !shell->argv[1])
 	{
-		while (shell->env[i])
-		{
-			printf ("declare -x %s\n", shell->env[i++]);
-		}
+		// while (shell->env[i])
+		// 	printf ("declare -x %s\n", shell->env[i++]);
+		ft_print_env(shell);
 		return (0);
 	}
-	if(valid_export(shell->argv) == 1)
+	if (valid_export(shell->argv) == 1)
 	{
-		write (1, "wrong\n", 6);
+		write(1, "wrong\n", 6);
 		return (0);
 	}
 	i = 0;
@@ -105,34 +94,42 @@ int	ex_export(t_mini *shell)
 	return (0);
 }
 
+// maybe easier with valid_var_name()?
 int	valid_export(char **args)
 {
-	int i = 1;
-	int eq = 0;
-	if (ft_strcmp(args[0], "export") == 0)
+	int	i;
+	int	eq;
+	int	j;
+
+	i = 1;
+	eq = 0;
+	if (ft_strcmp(args[0], "export") != 0)
+		return (0);
+	while (args[i])
 	{
-		while (args[i])
+		j = 1;
+		if (!valid_var_name(args[i][0], 0))
+			return (0);
+		while (args[i][j])
 		{
-			int j = 0;
-			while (args[i][j])
-			{
-				if (!(ft_isalpha(args[i][0]) || args[i][0] == '_' ))
-					return (0);
-				if (!(ft_isalnum(args[i][j]) || args[i][j] == '_' || (j > 0 && args[i][j] == '=')))
-					return (0);
-				if (args[i][j] == '=')
-					eq++;
-				j++;
-			}
-			i++;
+			// if (!(ft_isalpha(args[i][0]) || args[i][0] == '_' ))
+			// 	return (0);
+			// if (!(ft_isalnum(args[i][j]) || args[i][j] == '_' || (j > 0 && args[i][j] == '=')))
+			// 	return (0);
+			if (!(valid_var_name(args[i][j], j) || args[i][j] == '='))
+				return (0);
+			if (args[i][j] == '=')
+				eq++;
+			j++;
 		}
-		i--;
-		if (eq != i)
-			return (1);
+		i++;
 	}
+	// if (eq != i - 1) what is this???
+	// 	return (1);
 	return (1);
 }
 
+// save all env variables in t_mini
 void	get_ev(t_mini *shell, char **ev)
 {
 	int i;

@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 09:41:46 by asemsey           #+#    #+#             */
-/*   Updated: 2024/03/05 09:43:32 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/03/06 16:33:21 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	ex_exit(char **args)
 {
 	if (ft_strcmp(args[0], "exit") == 0)
 		exit(EXIT_SUCCESS);
-	return (0);
+	return (-2);
 }
 
 // ???
