@@ -3,77 +3,88 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/19 10:09:31 by asemsey           #+#    #+#             */
-/*   Updated: 2024/03/06 18:43:41 by asemsey          ###   ########.fr       */
+/*   Created: 2024/03/23 11:22:32 by fnikzad           #+#    #+#             */
+/*   Updated: 2024/05/06 11:58:46 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include <unistd.h>
-# include <stdlib.h>
-# include <stdio.h>
-# include <signal.h>
-# include <dirent.h> 
 # include <sys/stat.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include "include/libft/libft.h"
+# include <fcntl.h>
+# include <signal.h>
+# include <termios.h>
+# include <sys/wait.h>
+# include <limits.h>
+# include "libft/libft.h"
+# include "mini_parse.h"
 
-// enum	e_cmd{
-// 	CD=0,
-// 	PWD=1,
-// 	ECHO=2,
-// 	EXPORT=3,
-// 	UNSET=4,
-// 	ENV=5,
-// 	EXIT=6
-// };
+extern int	g_sig;
 
-typedef struct s_mini
-{
-	char		**env;
-	int			var_num;
-	char		**argv;
-	int			argc;
-	int			*arg_type;
-} t_mini;
+// input
 
-// parsing
-
-void	replace_var(t_mini *shell);
-void	remove_quotes(t_mini *shell);
-int		get_arg_types(t_mini *shell);
-char	*add_variables(t_mini *shell, char *str);
-int		valid_var_name(char c, int index);
-int		valid_export(char **args);
-
-void	get_ev(t_mini *shell, char **ev);
-char	*search_var(t_mini *shell, char *s);
+int			read_command(t_mini *mini);
+void		sig_init(void);
+void		mini_handler(int sig);
+void		configure_terminal(void);
 
 // builtins
 
-int		execute_all(t_mini *shell);
-int		ex_env(t_mini *shell);
-int		ex_exit(char **args);
-int		ex_pwd(char **args);
-int		ex_echo(t_mini *shell);
-int		ex_cd(char **args);
-int		ex_export(t_mini *shell);
-int		ex_unset(t_mini *shell);
+int			ex_export(t_mini *shell, char **args);
+int			ex_cd(char **args, t_mini *shell);
+int			ex_echo(t_mini *shell, t_cmd *cmd);
+int			ex_pwd(char **args);
+int			ex_unset(t_mini *shell, t_cmd *cmd);
+void		m_exec(t_mini *shell);
+int			ft_exit(t_mini *shell, t_cmd *cmd);
+int			valid_builtins(char *s);
+int			count_cmd(t_mini *shell);
+void		built_ins2(t_mini *shell, t_cmd *cmd);
+int			check_fd(char *filename);
 
-// helpers
+//export
 
-int		len_str_arr(char **s);
-void	*free_ints(int **ints, int size);
-char	*remove_char(char *s, char c);
-void	ft_print_env(t_mini *shell);
+void		export2(char **args, t_mini *shell);
+int			valid_export(char *args);
+int			valid_var_name(char c, int index);
 
-// void	execute_pwd(char **args);
-// void	ft_free (char **s);
-// ft_free is identical to free_all which has the optional return value NULL :) (->libft)
+//path
+
+char		*find_path(t_mini *shell, char *s);
+int			file_check(char *s, char **env);
+void		file_check1(char *command);
+void		handle_no_permission(t_mini *shell, char *cmd);
+void		handle_command_not_found(t_mini *shell, char *command);
+char		*check_permissions(t_mini *shell, char *cmd, char **env);
+void		execute_builtin(t_mini *shell, t_cmd *cmd);
+
+///exec
+
+void		exec_without_pipe(t_mini *shell);
+void		exec_helper(t_mini *shell, int **fd, int i, t_cmd *cmd);
+void		multi_pipe(t_mini *shell);
+void		wait_for_child_processes(t_mini *shell);
+void		loop_through_commands(t_mini *shell, int **fd);
+void		execute_command(t_mini *shell, t_cmd *cmd);
+void		handle_fd_redirections(t_cmd *cmd);
+void		close_file_descriptors(int **fd, int cmd_count);
+void		redirect_std_io(int **fd, int i, t_mini *shell);
+void		execute_external(t_mini *shell, t_cmd *cmd);
+void		parent_process(pid_t pid, t_mini *shell);
+void		child_process(t_cmd *cmd, int *fd, t_mini *shell);
+void		free_pipes(int **fd, int num_pipes);
+int			**malloc_pipes(t_mini *shell);
+
+// utils
+
+int			ft_arrlen(char **s);
+int			is_whitespace(char c);
+
+int			check_var(char *args);
+void		loop_through_env(t_mini *shell, char *args, int j);
+void		ex_env(t_mini *shell);
 
 #endif
